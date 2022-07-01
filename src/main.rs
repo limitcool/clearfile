@@ -7,6 +7,7 @@ fn main() {
     .with(fmt::layer())
     .init();
     let files = get_files("./".to_string());
+    // tracing::info!("{:?}", files);
     for file in files {
         let ok = fs::metadata(file.clone()).unwrap().modified().unwrap();
         let since_the_epoch = ok.duration_since(UNIX_EPOCH).unwrap();
@@ -30,7 +31,7 @@ fn get_files(path:String)-> Vec<String>{
             files.push(path.unwrap().path().display().to_string());
         }
         // 去除数组中的元素,只保留.mp4结尾的文件
-        files.retain(|x| x.ends_with(".mp4") || x.ends_with(".MP4") );
+        files.retain(|x| x.ends_with(".mp4") || x.ends_with(".MP4") || x.ends_with(".m4a") || x.ends_with(".part") || x.ends_with(".ytdl"));
         return files
 
 }
